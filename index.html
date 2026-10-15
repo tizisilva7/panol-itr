@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pañol ITR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,800;1,900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="lateral">
+    <button class="logo" data-ir="inventario">
+      <span class="logo-itr">ITR</span>
+      <span>
+        <b>PAÑOL</b>
+        <small>Preceptoría</small>
+      </span>
+    </button>
+
+    <nav class="menu">
+      <p class="etiqueta">Menú</p>
+      <button class="item activo" data-ir="inventario"><span class="ic" data-icono="grilla"></span>Inventario</button>
+      <button class="item" data-ir="prestamos"><span class="ic" data-icono="flechas"></span>Préstamos <span class="num" id="numPrestamos">0</span></button>
+      <button class="item" data-ir="historial"><span class="ic" data-icono="reloj"></span>Historial</button>
+    </nav>
+
+    <div class="recreo">
+      <p class="etiqueta amarilla">Hora</p>
+      <p class="hora" id="hora">--:--</p>
+      <div class="barra"><div class="lleno" id="barraRecreo"></div></div>
+      <p class="chico" id="textoRecreo"></p>
+    </div>
+  </aside>
+
+  <main class="contenido">
+
+    <section id="vista-inventario" class="vista">
+      <div class="cabecera">
+        <div>
+          <h1>INVENTARIO</h1>
+          <p class="sub" id="fecha"></p>
+        </div>
+        <button class="boton amarillo" id="abrirRegistro">Registrar préstamo <span class="ic" data-icono="flecha"></span></button>
+      </div>
+
+      <div class="datos">
+        <button class="dato" data-ir="inventario" data-filtro-estado="Disponible"><b id="cDisp" class="verde">0</b><span>Disponibles</span></button>
+        <button class="dato" data-ir="prestamos"><b id="cPres" class="azul">0</b><span>Prestados</span></button>
+        <button class="dato" data-ir="inventario" data-filtro-estado="fuera"><b id="cFuera" class="naranja">0</b><span>Para arreglar</span></button>
+        <div class="dato"><b id="cTotal" class="amarilla">0</b><span>En total</span></div>
+      </div>
+
+      <div class="filtros" id="filtros"></div>
+      <div class="tarjetas" id="tarjetas"></div>
+    </section>
+
+    <section id="vista-prestamos" class="vista" hidden>
+      <div class="cabecera">
+        <div>
+          <h1>PRÉSTAMOS</h1>
+          <p class="sub">Lo que está afuera ahora</p>
+        </div>
+        <button class="boton amarillo" id="abrirRegistro2">Registrar préstamo <span class="ic" data-icono="flecha"></span></button>
+      </div>
+      <div class="lista" id="listaPrestamos"></div>
+      <div class="aviso">
+        <span class="ic amarilla" data-icono="reloj"></span>
+        <p>Acordate de devolver todo antes del timbre.</p>
+        <button class="link" data-ir="historial">Ver historial <span class="ic" data-icono="flecha"></span></button>
+      </div>
+    </section>
+
+    <section id="vista-historial" class="vista" hidden>
+      <div class="cabecera">
+        <div>
+          <h1>HISTORIAL</h1>
+          <p class="sub">Préstamos, devoluciones y reportes</p>
+        </div>
+      </div>
+      <div class="filtros" id="periodos">
+        <button class="chip activo" data-periodo="hoy">Hoy</button>
+        <button class="chip" data-periodo="semana">Esta semana</button>
+        <button class="chip" data-periodo="mes">Este mes</button>
+      </div>
+      <div class="tabla-caja">
+        <table>
+          <thead>
+            <tr><th>Hora</th><th>Alumno</th><th>División</th><th>Elemento</th><th>Movimiento</th><th>Estado</th></tr>
+          </thead>
+          <tbody id="tablaHistorial"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="ventana" id="ventanaRegistro" hidden>
+  <div class="fondo" data-cerrar></div>
+  <form class="caja" id="formRegistro" novalidate>
+    <div class="caja-arriba">
+      <div>
+        <h2>REGISTRAR PRÉSTAMO</h2>
+        <p class="sub">Completá los datos del alumno</p>
+      </div>
+      <button type="button" class="cerrar" data-cerrar aria-label="Cerrar"><span class="ic" data-icono="cruz"></span></button>
+    </div>
+    <label class="campo">
+      <span class="etiqueta">Elemento</span>
+      <select id="rElemento"></select>
+    </label>
+    <label class="campo">
+      <span class="etiqueta">Alumno</span>
+      <input id="rAlumno" type="text" placeholder="Nombre y apellido" autocomplete="off">
+    </label>
+    <label class="campo">
+      <span class="etiqueta">Año y división</span>
+      <select id="rDivision"></select>
+    </label>
+    <p class="error" id="rError" hidden></p>
+    <p class="chico"><span class="ic amarilla" data-icono="reloj"></span> Devolver antes del timbre</p>
+    <div class="botones">
+      <button type="button" class="boton borde" data-cerrar>Cancelar</button>
+      <button type="submit" class="boton amarillo">Confirmar <span class="ic" data-icono="flecha"></span></button>
+    </div>
+  </form>
+</div>
+
+<div class="ventana" id="ventanaListo" hidden>
+  <div class="fondo" data-cerrar></div>
+  <div class="caja centrada">
+    <div class="ok"><span class="ic" data-icono="tilde"></span></div>
+    <h2>PRÉSTAMO REGISTRADO</h2>
+    <p class="sub" id="textoListo">Retirá el elemento en preceptoría.</p>
+    <button class="boton amarillo ancho" data-cerrar>Listo</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

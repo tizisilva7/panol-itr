@@ -1,25 +1,17 @@
 # Pañol ITR
 
-Prototipo en Figma de un sistema para prestar los elementos de deporte de la preceptoría del ITR (pelotas de fútbol, básquet, vóley, paletas de ping pong, conos).
+Sistema para prestar los elementos de deporte de la preceptoría del ITR (pelotas de fútbol, básquet, vóley, paletas de ping pong, conos).
 
 Se puede ver qué está disponible, qué está prestado y qué está pinchado, roto o perdido, y registrar el alumno y la división cuando se lleva algo.
 
-## Pantallas
+## Página web
 
-- Inventario
-- Préstamos
-- Historial
+- `index.html`, `estilos.css` y `app.js`: la página.
+- Tiene tres pantallas: Inventario, Préstamos e Historial.
+- Los datos se guardan en el navegador (localStorage).
 
-## Archivos
+## Prototipo en Figma
 
 - `panol.js`: código que arma el prototipo en Figma (componentes, pantallas e interacciones).
-
-## Cómo correrlo
-
-1. En Figma: Plugins > Development > New plugin.
-2. Pegar el contenido de `panol.js` en `code.js`.
-3. Ejecutar el plugin.
-
-## Figma
-
-https://www.figma.com/design/H8dBUX9KiPeYp2VZ5xISuO
+- Para correrlo: en Figma ir a Plugins > Development > New plugin, pegar el contenido de `panol.js` en `code.js` y ejecutarlo.
+- Archivo: https://www.figma.com/design/H8dBUX9KiPeYp2VZ5xISuO
